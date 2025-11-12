@@ -1,12 +1,21 @@
 import streamlit as st
 
-# Define the pages
-main_page = st.Page("pages/main_page.py", title="Main Page", icon="🎈")
-page_2 = st.Page("pages/page_2.py", title="Page 2", icon="❄️")
-page_3 = st.Page("pages/page_3.py", title="Page 3", icon="🎉")
+st.set_page_config(page_title="GameRate", layout="wide")
 
-# Set up navigation
-pg = st.navigation([main_page, page_2, page_3])
+try:
+    home = st.Page("pages/01_home_page.py", title="Strona główna")
+    browse = st.Page("pages/02_browse_page.py", title="Przeglądaj")
+    rankings = st.Page("pages/03_rankings_page.py", title="Rankingi")
+    about = st.Page("pages/99_about_page.py", title="O nas")
 
-# Run the selected page
-pg.run()
+    nav = st.navigation([home, browse, rankings, about])
+    nav.run()
+
+except Exception:
+    st.title("GameRate")
+    st.write("Użyj poniższych linków, aby przejść do podstron:")
+
+    st.page_link("pages/01_home_page.py", label="Strona główna")
+    st.page_link("pages/02_browse_page.py", label="Przeglądaj")
+    st.page_link("pages/03_rankings_page.py", label="Rankingi")
+    st.page_link("pages/99_about_page.py", label="O nas")
