@@ -25,15 +25,14 @@ with col1:
     st.subheader("O projekcie")
     st.markdown(
         """
-        Gamerate analizuje dane o grach steam i przewiduje jakość gry
-        na podstawie wielu cech.
+        Projekt gamerate umożliwia analize danych o grach na platformie steam i na podstawie ich cech przewidziec ocene użytkowników.
         """
     )
 
     st.subheader("Nawigacja")
     st.page_link("pages/02_browse_page.py", label="przeglądaj gry")
     st.page_link("pages/03_rankings_page.py", label="rankingi")
-    st.page_link("pages/04_model_page.py", label="model predykcyjny")
+    st.page_link("pages/04_model_page.py", label="modele ")
     st.page_link("pages/99_about_page.py", label="o nas")
 
 with col2:
