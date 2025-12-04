@@ -1,0 +1,27 @@
+name: gamerate
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.8
+  - pandas
+  - scikit-learn
+  - autogluon
+  - streamlit
+  - numpy
+  - matplotlib
+  - seaborn
+  - jupyterlab
+  - notebook
+  - tensorflow
+  - keras
+  - pytorch
+  - xgboost
+  - lightgbm
+  - pip
+  - pip:
+      - mlflow
+      - shap
+      - plotly
+      - transformers
+      - optuna

@@ -4,7 +4,7 @@ import altair as alt
 from pathlib import Path
 
 st.set_page_config(page_title="przeglądaj", layout="wide")
-st.title("przeglądaj gry")
+st.title("Przeglądaj gry")
 
 # funkcja do wczytywania danych
 @st.cache_data(show_spinner=False)
@@ -30,7 +30,7 @@ if df.empty:
 st.success(f"wczytano dane: {len(df):,} rekordów z pliku top_500.csv")
 
 # panel boczny z filtrami
-st.sidebar.header("filtry")
+st.sidebar.header("Filtry")
 
 # filtr po nazwie gry
 name_col = "name" if "name" in df.columns else None
@@ -78,7 +78,7 @@ if sort_by in filtered_df.columns:
 # liczba wierszy do pokazania
 top_n = st.sidebar.slider("liczba gier do wyświetlenia w tabeli", 10, 100, 30)
 
-st.subheader("przegląd danych (filtrowalne)")
+st.subheader("Przegląd danych (filtrowalne)")
 cols_to_show = []
 
 for c in ["name", "title", "price", "pct_pos_total", "num_reviews_total"]:
@@ -95,7 +95,7 @@ st.dataframe(
 )
 
 st.divider()
-st.subheader("podstawowe wizualizacje")
+st.subheader("Podstawowe wizualizacje")
 
 # układ dwóch kolumn na wykresy
 c1, c2 = st.columns(2)
@@ -103,7 +103,7 @@ c1, c2 = st.columns(2)
 # histogram ceny
 if "price" in filtered_df.columns and pd.api.types.is_numeric_dtype(filtered_df["price"]):
     with c1:
-        st.markdown("**rozkład ceny gier**")
+        st.markdown("**Rozkład ceny gier**")
         price_chart = (
             alt.Chart(filtered_df)
             .mark_bar()
@@ -118,7 +118,7 @@ if "price" in filtered_df.columns and pd.api.types.is_numeric_dtype(filtered_df[
 # rozkład procenta pozytywnych ocen
 if "pct_pos_total" in filtered_df.columns and pd.api.types.is_numeric_dtype(filtered_df["pct_pos_total"]):
     with c2:
-        st.markdown("**rozkład pozytywnych ocen**")
+        st.markdown("**Rozkład pozytywnych ocen**")
         score_chart = (
             alt.Chart(filtered_df)
             .mark_bar()
@@ -132,7 +132,7 @@ if "pct_pos_total" in filtered_df.columns and pd.api.types.is_numeric_dtype(filt
 
 # liczba gier w czasie jeśli jest data wydania
 if "release_date" in df.columns:
-    st.markdown("**liczba gier wydanych w kolejnych latach**")
+    st.markdown("**Liczba gier wydanych w kolejnych latach**")
     tmp = filtered_df.copy()
     tmp["release_year"] = pd.to_datetime(tmp["release_date"], errors="coerce").dt.year
     year_counts = (
@@ -156,4 +156,4 @@ if "release_date" in df.columns:
     else:
         st.info("brak poprawnych dat wydania do pokazania wykresu.")
 
-st.caption("dane pochodzą z pliku top_400.csv (surowy zbiór gier)")
+st.caption("Dane pochodzą z pliku top_400.csv (surowy zbiór gier)")

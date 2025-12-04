@@ -5,7 +5,7 @@ from pathlib import Path
 
 st.set_page_config(page_title="GameRate", layout="wide")
 st.title("GameRate")
-st.caption("prototyp platformy analityki gier steam")
+st.caption("Prototyp platformy analityki gier steam")
 
 # funkcja do wczytywania danych z pliku
 @st.cache_data(show_spinner=False)
@@ -22,32 +22,32 @@ df = load_data()
 col1, col2 = st.columns([2, 1], gap="large")
 
 with col1:
-    st.subheader("o projekcie")
+    st.subheader("O projekcie")
     st.markdown(
         """
-        gamerate analizuje dane o grach steam i przewiduje jakość gry
+        Gamerate analizuje dane o grach steam i przewiduje jakość gry
         na podstawie wielu cech.
         """
     )
 
-    st.subheader("nawigacja")
+    st.subheader("Nawigacja")
     st.page_link("pages/02_browse_page.py", label="przeglądaj gry")
     st.page_link("pages/03_rankings_page.py", label="rankingi")
     st.page_link("pages/04_model_page.py", label="model predykcyjny")
     st.page_link("pages/99_about_page.py", label="o nas")
 
 with col2:
-    st.subheader("cel projektu")
+    st.subheader("Cel projektu")
     st.info(
         """
-        umożliwić eksplorację danych, tworzenie rankingów
-        i przewidywanie jakości gier (>70% pozytywnych ocen).
+        Celem projektu jest stworzenie modelu predykcyjnego na podstawie zestawu danych gier znajdujących się na platformie steam, 
+        który będzie przewidywał ich ocenę na podstawie różnych danych wejściowych takich jak gatunek, tagi etc.
         """
     )
 
 st.divider()
 
-st.subheader("podstawowe statystyki danych")
+st.subheader("Podstawowe statystyki danych")
 
 # jeśli brak danych, zatrzymujemy stronę
 if df.empty:
@@ -66,7 +66,7 @@ k4.metric("unikalne gatunki", len(genre_cols))
 st.divider()
 
 # histogram ocen
-st.subheader("rozkład ocen gier")
+st.subheader("Rozkład ocen gier")
 
 hist = (
     alt.Chart(df)
@@ -81,7 +81,7 @@ hist = (
 st.altair_chart(hist, use_container_width=True)
 
 # top gatunków
-st.subheader("najpopularniejsze gatunki")
+st.subheader("Najpopularniejsze gatunki")
 
 if genre_cols:
     top_genres = df[genre_cols].sum().sort_values(ascending=False).head(10)
@@ -89,4 +89,4 @@ if genre_cols:
 else:
     st.info("brak kolumn gatunków po przetwarzaniu.")
 
-st.caption("© 2025 gamerate — strona główna")
+st.caption("© 2025 Gamerate — Strona Główna")

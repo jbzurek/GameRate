@@ -4,7 +4,7 @@ import altair as alt
 from pathlib import Path
 
 st.set_page_config(page_title="rankingi", layout="wide")
-st.title("rankingi gier")
+st.title("Rankingi gier")
 
 # funkcja do wczytywania danych
 @st.cache_data(show_spinner=False)
@@ -30,7 +30,7 @@ if df.empty:
 st.success(f"wczytano dane: {len(df):,} rekordów z pliku top_500.csv")
 
 # panel boczny z ustawieniami rankingu
-st.sidebar.header("ustawienia rankingu")
+st.sidebar.header("Ustawienia rankingu")
 
 # lista kolumn numerycznych
 numeric_cols = [c for c in df.columns if pd.api.types.is_numeric_dtype(df[c])]
@@ -61,7 +61,7 @@ ascending = st.sidebar.checkbox("sortuj rosnąco", value=default_ascending)
 min_reviews = 0
 if "num_reviews_total" in df.columns and pd.api.types.is_numeric_dtype(df["num_reviews_total"]):
     st.sidebar.markdown("---")
-    st.sidebar.markdown("**filtry jakości danych**")
+    st.sidebar.markdown("**Filtry jakości danych**")
     max_reviews = int(df["num_reviews_total"].max())
     min_reviews = st.sidebar.slider(
         "minimalna liczba recenzji",
@@ -107,7 +107,7 @@ if rank_df.empty:
 # sortowanie i wybór top n
 rank_df = rank_df.sort_values(by=rank_by, ascending=ascending, na_position="last").head(top_n)
 
-st.subheader(f"top {top_n} gier według: **{rank_by}**")
+st.subheader(f"Top {top_n} gier według: **{rank_by}**")
 
 # wybór kolumn do wyświetlenia
 cols = []
@@ -134,7 +134,7 @@ st.dataframe(
 st.divider()
 
 # wykres słupkowy top n gier
-st.subheader("wizualizacja rankingu")
+st.subheader("Wizualizacja rankingu")
 
 name_col = "title" if "title" in rank_df.columns else ("name" if "name" in rank_df.columns else None)
 
@@ -159,7 +159,7 @@ else:
 
 # dodatkowa wizualizacja: wybrana metryka vs procent pozytywnych ocen
 if "pct_pos_total" in rank_df.columns and pd.api.types.is_numeric_dtype(rank_df["pct_pos_total"]):
-    st.subheader("zależność metryki od procentu pozytywnych ocen")
+    st.subheader("Zależność metryki od procentu pozytywnych ocen")
 
     scatter_df = rank_df.copy()
     if not name_col:
@@ -179,4 +179,4 @@ if "pct_pos_total" in rank_df.columns and pd.api.types.is_numeric_dtype(rank_df[
     )
     st.altair_chart(scatter, use_container_width=True)
 
-st.caption("ranking wygenerowany lokalnie z danych top_400.csv")
+st.caption("Ranking wygenerowany lokalnie z danych top_400.csv")
